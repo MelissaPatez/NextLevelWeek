@@ -1,6 +1,5 @@
-import { request, Request, Response } from "express";
+import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { Suvery } from "../models/Survey";
 import { SurveysRepository } from "../repositories/SurveysRepository";
 
 class SurveysController {
@@ -28,3 +27,4 @@ class SurveysController {
 }
 
 export { SurveysController };
+
