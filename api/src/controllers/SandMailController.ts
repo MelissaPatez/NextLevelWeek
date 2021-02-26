@@ -7,9 +7,8 @@ import { SurveyUserRepository } from "../repositories/SurveyUserRepository";
 import { UserRepository } from "../repositories/UsersRepository";
 
 class SendMailController {
-    [x: string]: RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
 
-    async create(request: Request, response: Response) {
+    async execute(request: Request, response: Response) {
         const { email, survey_id} = request.body;
 
         //para validar o usuario e pesquisa 
@@ -33,8 +32,8 @@ class SendMailController {
             });
         }
         //salvar informações na tabela surveyuser
-        const surveyUser = await surveysUsersRepository.create({
-            user_id: surveyAlreadyExists.id,
+        const surveyUser = surveysUsersRepository.create({
+            user_id: userAlreadyExists.id,
             survey_id
         })
         await surveysUsersRepository.save(surveyUser);
