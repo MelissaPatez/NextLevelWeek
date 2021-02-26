@@ -48,6 +48,7 @@ class SendMailController {
             id: "",
             link: process.env.URL_MAIL
         }
+        console.log(process.env.URL_MAIL)
 
         if(surveyUserAlreadyExists){
             variables.id = surveyUserAlreadyExists.id;
