@@ -12,7 +12,6 @@ class SettingsService{
     constructor() {
         this.settingsRepository = getCustomRepository(SettingsRepository);
     }
-    
     async create({ chat, username} : ISettingsCreate) {
 
         // Select * from settings where username = "username" limit 1
