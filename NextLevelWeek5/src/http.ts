@@ -6,8 +6,25 @@ import {Server, Socket} from 'socket.io';
 import { routes } from './routes';
 import './database';
 import path from "path";
+import cors from 'cors';
 
 const app = express();
+const options: cors.CorsOptions = {
+    allowedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'X-Access-Token',
+    ],
+    credentials: true,
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  };
+  
+  app.use(cors(options))
+  
+  app.options('*', cors(options));
 
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.set("views", path.join(__dirname, "..", "public"));
