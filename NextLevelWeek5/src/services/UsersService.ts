@@ -1,13 +1,18 @@
-import { getCustomRepository } from "typeorm"
+import { getCustomRepository, Repository } from "typeorm"
+import { User } from "../entities/User";
 import { UsersRepository } from "../repositories/UsersRepository"
 
 
 class UsersService{
-    async create(email:string) {
-        const usersRepository = getCustomRepository(UsersRepository);
+    private usersRepository : Repository<User>;
 
+    constructor() {
+        this.usersRepository = getCustomRepository(UsersRepository);
+    }
+    
+    async create(email:string) {
         //verificar se usuario existe
-        const userExist = await usersRepository.findOne({
+        const userExist = await this.usersRepository.findOne({
             email
         })
 
@@ -17,8 +22,8 @@ class UsersService{
         }
 
         //se não existir, salvar no BD
-        const user = usersRepository.create({email});
-        await usersRepository.save(user);
+        const user = this.usersRepository.create({email});
+        await this.usersRepository.save(user);
         return user; 
         
     }
