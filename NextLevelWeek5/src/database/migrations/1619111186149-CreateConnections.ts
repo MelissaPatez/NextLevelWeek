@@ -44,7 +44,7 @@ export class CreateConnections1619111186149 implements MigrationInterface {
                 name: "FKConnectionsUser",
                 referencedTableName: "users",
                 referencedColumnNames:["id"],
-                columnNames: ["user_id"], //sempre que tiver essa coluna user_id vai ta referenciando a coluna id dentro da tabela users
+                columnNames: ["user_id"], 
                 onDelete: "SET NULL",
                 onUpdate: "SET NULL"
             })
