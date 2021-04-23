@@ -25,7 +25,34 @@ function call(id){
 
     const rendered = Mustache.render(template, {
         email: connection.user.email,
-        id: connection.user.id
+        id: connection.user_id
     });
     document.getElementById("supports").innerHTML += rendered; 
+
+    const params = {
+        user_id: connection.user_id
+    };
+
+    socket.emit("admin_list_messages_by_user", params, messages => {
+        const divMessages = document.getElementById(`allMessages${connection.user_id}`);
+
+        messages.forEach(message => {
+            const createDiv = document.createElement("div");
+            if(message.admin_id === null){
+                //messageUser
+                createDiv.className = "admin_message_client";
+                createDiv.innerHTML = `<span>${connection.user.email}`;
+                createDiv.innerHTML += ` ${message.text}</span>`;
+                createDiv.innerHTML += `<span class="admin_date">${dayjs(message.created_at).format("DD/MM/YYYY HH:mm:ss")}</span>`
+            }else{
+                //messageAdmin
+                createDiv.className = "admin_message_admin";
+                createDiv.innerHTML = `Atendente: <span>${message.text}</span>`;
+                createDiv.innerHTML += `<span class="admin_date">${dayjs(message.created_at).format("DD/MM/YYYY HH:mm:ss")}</span>`
+            }
+            divMessages.appendChild(createDiv);
+        })
+        
+    })
+
 }
