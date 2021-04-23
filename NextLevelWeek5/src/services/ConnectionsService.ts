@@ -27,9 +27,16 @@ class ConnectionsService{
     }
 
     async findByUserId(user_id: string){
-        const connection= this.connectionsRepository.findOne({user_id});
+        const connection = this.connectionsRepository.findOne({user_id});
         return connection;
     }
+    //conexao sem admin
+    async findAllWithoutAdmin(){
+        const connections = this.connectionsRepository.find({
+            where: {admin_id: null},
+            relations: ["user"],
+        });
+        return connections;
+    }
 }
-
 export {ConnectionsService}
