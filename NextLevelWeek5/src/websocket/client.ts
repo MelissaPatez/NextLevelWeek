@@ -45,6 +45,9 @@ io.on("connect", (socket) => {
         }
 
         await messagesService.create({ text, user_id });
+
+        const allMessages = await messagesService.ListByUser(user_id); //listar todas as mensagens 
+        socket.emit("client_list_all_messages", allMessages); //emitindo todas as mensagens //o evento q vai estar ouvindo o emit esta em chat.js 
         
     });
 });
