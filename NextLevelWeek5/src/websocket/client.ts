@@ -49,6 +49,8 @@ io.on("connect", (socket) => {
         const allMessages = await messagesService.ListByUser(user_id); //listar todas as mensagens 
         socket.emit("client_list_all_messages", allMessages); //emitindo todas as mensagens //o evento q vai estar ouvindo o emit esta em chat.js 
         
+        const allUsers = await connectionsService.findAllWithoutAdmin();
+        io.emit("admin_list_all_users", allUsers);
     });
 
     socket.on("client_send_to_admin", async (params) => {
